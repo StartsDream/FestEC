@@ -4,10 +4,13 @@ import com.example.latte.net.callback.IError;
 import com.example.latte.net.callback.IFailure;
 import com.example.latte.net.callback.IRequest;
 import com.example.latte.net.callback.ISuccess;
+import com.example.latte.net.callback.RequestCallBacks;
 
 import java.util.Map;
 
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * Created by GPT-2273 on 2017/9/25.
@@ -39,7 +42,57 @@ public class RestClient {
         this.BODY = body;
     }
 
-    public static RestClientBuilder builder(){
+    public static RestClientBuilder builder() {
         return new RestClientBuilder();
+    }
+
+    private void request(HttpMethod method) {
+        final RestService service = RestCreator.getRestService();
+        Call<String> call = null;
+
+        if (REQUEST != null) {
+            REQUEST.onRequestStart();
+        }
+
+        switch (method) {
+            case GET:
+                call = service.get(URL, PARAMS);
+                break;
+            case PUT:
+                call = service.put(URL, PARAMS);
+                break;
+            case POST:
+                call = service.post(URL, PARAMS);
+                break;
+            case DELETE:
+                call = service.delete(URL, PARAMS);
+                break;
+            default:
+                break;
+        }
+
+        if (call != null) {
+            call.enqueue(getRequestCallback());
+        }
+    }
+
+    private Callback<String> getRequestCallback() {
+        return new RequestCallBacks(REQUEST, SUCCESS, FAILURE, ERROR);
+    }
+
+    public final void get() {
+        request(HttpMethod.GET);
+    }
+
+    public final void post() {
+        request(HttpMethod.POST);
+    }
+
+    public final void put() {
+        request(HttpMethod.PUT);
+    }
+
+    public final void delete() {
+        request(HttpMethod.DELETE);
     }
 }

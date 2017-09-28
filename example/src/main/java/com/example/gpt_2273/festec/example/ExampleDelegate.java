@@ -3,6 +3,7 @@ package com.example.gpt_2273.festec.example;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.net.RestClient;
@@ -22,17 +23,16 @@ public class ExampleDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
-
+        testRestClient();
     }
 
-    private void testRestClient(){
+    private void testRestClient() {
         RestClient.builder()
-                .url("")
-                .params("","")
+                .url("http://news.baidu.com/")
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-
+                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
                     }
                 })
                 .failure(new IFailure() {
@@ -47,6 +47,7 @@ public class ExampleDelegate extends LatteDelegate {
 
                     }
                 })
-                .build();
+                .build()
+                .get();
     }
 }
