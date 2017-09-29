@@ -1,10 +1,15 @@
 package com.example.latte.net;
 
+import android.content.Context;
+import android.os.Handler;
+
 import com.example.latte.net.callback.IError;
 import com.example.latte.net.callback.IFailure;
 import com.example.latte.net.callback.IRequest;
 import com.example.latte.net.callback.ISuccess;
 import com.example.latte.net.callback.RequestCallBacks;
+import com.example.latte.ui.LatteLoader;
+import com.example.latte.ui.LoaderStyle;
 
 import java.util.Map;
 
@@ -25,6 +30,10 @@ public class RestClient {
     private final IFailure FAILURE;
     private final IError ERROR;
     private final RequestBody BODY;
+    private final LoaderStyle LOADER_STYLE;
+    private final Context CONTEXT;
+
+    private static final Handler HANDLER = new Handler();
 
     public RestClient(String url,
                       Map<String, Object> params,
@@ -32,7 +41,9 @@ public class RestClient {
                       ISuccess success,
                       IFailure failure,
                       IError error,
-                      RequestBody body) {
+                      RequestBody body,
+                      LoaderStyle loaderStyle,
+                      Context context) {
         this.URL = url;
         PARAMS.putAll(params);
         this.REQUEST = request;
@@ -40,6 +51,8 @@ public class RestClient {
         this.FAILURE = failure;
         this.ERROR = error;
         this.BODY = body;
+        this.LOADER_STYLE = loaderStyle;
+        this.CONTEXT = context;
     }
 
     public static RestClientBuilder builder() {
@@ -52,6 +65,19 @@ public class RestClient {
 
         if (REQUEST != null) {
             REQUEST.onRequestStart();
+        }
+
+        if (LOADER_STYLE != null) {
+            LatteLoader.showLoading(CONTEXT, LOADER_STYLE);
+        }
+
+        if (LOADER_STYLE != null) {
+            HANDLER.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LatteLoader.stopLoading();
+                }
+            }, 1000);
         }
 
         switch (method) {
@@ -77,7 +103,7 @@ public class RestClient {
     }
 
     private Callback<String> getRequestCallback() {
-        return new RequestCallBacks(REQUEST, SUCCESS, FAILURE, ERROR);
+        return new RequestCallBacks(REQUEST, SUCCESS, FAILURE, ERROR, LOADER_STYLE);
     }
 
     public final void get() {

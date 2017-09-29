@@ -10,6 +10,7 @@ import com.example.latte.net.RestClient;
 import com.example.latte.net.callback.IError;
 import com.example.latte.net.callback.IFailure;
 import com.example.latte.net.callback.ISuccess;
+import com.example.latte.ui.LoaderStyle;
 
 /**
  * Created by GPT-2273 on 2017/9/25.
@@ -29,10 +30,11 @@ public class ExampleDelegate extends LatteDelegate {
     private void testRestClient() {
         RestClient.builder()
                 .url("http://news.baidu.com/")
+                .loader(getContext(), LoaderStyle.LineSpinFadeLoaderIndicator)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
                     }
                 })
                 .failure(new IFailure() {

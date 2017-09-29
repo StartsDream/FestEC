@@ -1,5 +1,7 @@
 package com.example.latte.net.callback;
 
+import com.example.latte.ui.LoaderStyle;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,12 +16,14 @@ public class RequestCallBacks implements Callback<String> {
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
     private final IError ERROR;
+    private final LoaderStyle LOADER_STYLE;
 
-    public RequestCallBacks(IRequest request, ISuccess success, IFailure failure, IError error) {
+    public RequestCallBacks(IRequest request, ISuccess success, IFailure failure, IError error, LoaderStyle loaderStyle) {
         this.REQUEST = request;
         this.SUCCESS = success;
         this.FAILURE = failure;
         this.ERROR = error;
+        this.LOADER_STYLE = loaderStyle;
     }
 
     @Override
