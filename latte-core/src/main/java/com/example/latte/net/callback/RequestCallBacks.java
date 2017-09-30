@@ -48,7 +48,7 @@ public class RequestCallBacks implements Callback<String> {
         }
 
         if (REQUEST != null) {
-            REQUEST.onRequetEnd();
+            REQUEST.onRequestEnd();
         }
     }
 }

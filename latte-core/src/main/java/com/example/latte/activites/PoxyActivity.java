@@ -1,11 +1,8 @@
 package com.example.latte.activites;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.ContentFrameLayout;
-import android.util.AttributeSet;
-import android.view.View;
 
 import com.example.latte.R;
 import com.example.latte.delegates.LatteDelegate;

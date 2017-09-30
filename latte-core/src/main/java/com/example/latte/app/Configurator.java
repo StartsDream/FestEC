@@ -13,7 +13,7 @@ import java.util.WeakHashMap;
 
 public class Configurator {
 
-    private static final HashMap<String, Object> LATTE_CONFIGS = new HashMap<>();
+    private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
 
     public Configurator() {
@@ -28,7 +28,7 @@ public class Configurator {
         private static final Configurator INSTANCE = new Configurator();
     }
 
-    final HashMap<String, Object> getLatteConfigs() {
+    final HashMap<Object, Object> getLatteConfigs() {
         return LATTE_CONFIGS;
     }
 
@@ -64,8 +64,12 @@ public class Configurator {
     }
 
     @SuppressWarnings("unchecked")
-    final <T> T getCOnfiguration(Enum<ConfigType> key) {
+    final <T> T getConfiguration(Object key) {
         checkConfiguration();
-        return (T) LATTE_CONFIGS.get(key.name());
+        final Object value = LATTE_CONFIGS.get(key);
+        if (value == null){
+            throw new NullPointerException(key.toString() + "is null");
+        }
+        return (T) LATTE_CONFIGS.get(key);
     }
 }
