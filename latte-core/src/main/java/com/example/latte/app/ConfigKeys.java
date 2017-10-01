@@ -10,9 +10,16 @@ package com.example.latte.app;
  * CONFIG_READY             控制初始化或者配置是否完成
  * ICON                     存取字体图标的初始化项目
  */
-public enum ConfigType {
+public enum ConfigKeys {
     API_HOST,
     APPLICATION_CONTEXT,
     CONFIG_READY,
-    ICON
+    ICON,
+    LOADER_DELAYED,
+    INTERCEPTOR,
+    WE_CHAT_APP_ID,
+    WE_CHAT_APP_SECRET,
+    ACTIVITY,
+    HANDLER,
+    JAVASCRIPT_INTERDACE
 }
