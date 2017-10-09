@@ -13,7 +13,7 @@ import me.yokeyword.fragmentation.SupportActivity;
  * Created by GPT-2273 on 2017/9/25.
  */
 
-public abstract class PoxyActivity extends SupportActivity {
+public abstract class ProxyActivity extends SupportActivity {
 
     public abstract LatteDelegate setRootDelegate();
 
