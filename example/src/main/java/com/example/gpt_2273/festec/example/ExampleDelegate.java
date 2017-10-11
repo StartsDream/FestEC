@@ -11,7 +11,6 @@ import com.example.latte.net.RestClient;
 import com.example.latte.net.callback.IError;
 import com.example.latte.net.callback.IFailure;
 import com.example.latte.net.callback.ISuccess;
-import com.example.latte.ui.LoaderStyle;
 
 /**
  * Created by GPT-2273 on 2017/9/25.

@@ -1,6 +1,6 @@
 package com.example.latte.net.callback;
 
-import com.example.latte.ui.LoaderStyle;
+import com.example.latte.ui.loader.LoaderStyle;
 
 import retrofit2.Call;
 import retrofit2.Callback;

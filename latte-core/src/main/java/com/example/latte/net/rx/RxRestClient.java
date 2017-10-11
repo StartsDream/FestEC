@@ -4,17 +4,9 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.example.latte.net.HttpMethod;
-import com.example.latte.net.RestClientBuilder;
 import com.example.latte.net.RestCreator;
-import com.example.latte.net.RestService;
-import com.example.latte.net.callback.IError;
-import com.example.latte.net.callback.IFailure;
-import com.example.latte.net.callback.IRequest;
-import com.example.latte.net.callback.ISuccess;
-import com.example.latte.net.callback.RequestCallBacks;
-import com.example.latte.net.download.DownloadHandler;
-import com.example.latte.ui.LatteLoader;
-import com.example.latte.ui.LoaderStyle;
+import com.example.latte.ui.loader.LatteLoader;
+import com.example.latte.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
@@ -24,8 +16,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 /**
  * Created by GPT-2273 on 2017/9/25.
