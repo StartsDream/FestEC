@@ -64,6 +64,10 @@ public final class LattePreference {
                 .apply();
     }
 
+    public static boolean getAppFlag(String key) {
+        return getPreferences().getBoolean(key, false);
+    }
+
     public static void addCustomAppProfile(String key, String val) {
         getPreferences()
                 .edit()
