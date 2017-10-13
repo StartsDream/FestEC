@@ -20,7 +20,7 @@ import butterknife.OnClick;
  * Created by GPT-2273 on 2017/10/11.
  */
 
-public class SignUpdelegate extends LatteDelegate {
+public class SignUpDelegate extends LatteDelegate {
 
     @BindView(R2.id.edit_sign_up_name)
     TextInputEditText mName = null;
@@ -49,6 +49,11 @@ public class SignUpdelegate extends LatteDelegate {
 //                    .post();
             Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @OnClick(R2.id.tv_link_sign_in)
+    void onClickLink(){
+        getProxyActivity().start(new SignInDelegate());
     }
 
     private boolean checkForm() {
