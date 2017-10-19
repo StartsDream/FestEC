@@ -3,6 +3,7 @@ package com.example.latte.ec.sign;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
 import com.example.latte.net.RestClient;
 import com.example.latte.net.callback.ISuccess;
+import com.example.latte.util.log.LatteLogger;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,25 +36,29 @@ public class SignUpDelegate extends LatteDelegate {
     TextInputEditText mRePassword = null;
 
     @OnClick(R2.id.btn_sign_up)
-    void onClickSignUp(){
-        if (checkForm()){
-//            RestClient.builder()
-//                    .url("sign_up")
-//                    .params("","")
-//                    .success(new ISuccess() {
-//                        @Override
-//                        public void onSuccess(String response) {
-//
-//                        }
-//                    })
-//                    .build()
-//                    .post();
+    void onClickSignUp() {
+        if (checkForm()) {
+            RestClient.builder()
+                    .url("http://192.168.253.2:8080/RestServer/api/user_profile.php")
+                    .params("name", mName.getText().toString())
+                    .params("email", mEmail.getText().toString())
+                    .params("phone", mPhone.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            LatteLogger.json("USER_PROFILE", response);
+                            SignHandler.onSignUp(response);
+                        }
+                    })
+                    .build()
+                    .post();
             Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
         }
     }
 
     @OnClick(R2.id.tv_link_sign_in)
-    void onClickLink(){
+    void onClickLink() {
         getProxyActivity().start(new SignInDelegate());
     }
 
