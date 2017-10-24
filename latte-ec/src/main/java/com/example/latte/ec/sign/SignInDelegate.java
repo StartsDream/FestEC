@@ -1,5 +1,6 @@
 package com.example.latte.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -9,6 +10,9 @@ import android.view.View;
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.ec.R;
 import com.example.latte.ec.R2;
+import com.example.latte.net.RestClient;
+import com.example.latte.net.callback.ISuccess;
+import com.example.latte.util.log.LatteLogger;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,10 +28,30 @@ public class SignInDelegate extends LatteDelegate {
     @BindView(R2.id.edit_sign_in_password)
     TextInputEditText mPassword = null;
 
+    private ISignListener mSignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mSignListener = (ISignListener) activity;
+    }
+
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
-
+            RestClient.builder()
+                    .url("http://192.168.43.46:8080/RestServer/api/user_profile.php")
+                    .params("email", mEmail.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSuccess(String response) {
+                            LatteLogger.json("USER_PROFILE", response);
+                            SignHandler.onSignIn(response, mSignListener);
+                        }
+                    })
+                    .build()
+                    .post();
         }
     }
 
@@ -47,7 +71,7 @@ public class SignInDelegate extends LatteDelegate {
 
         boolean isPass = true;
 
-        if (email.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             mEmail.setError("错误的邮箱");
             isPass = false;
         } else {

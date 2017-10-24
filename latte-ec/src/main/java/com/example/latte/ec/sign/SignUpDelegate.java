@@ -1,12 +1,11 @@
 package com.example.latte.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.latte.delegates.LatteDelegate;
 import com.example.latte.ec.R;
@@ -35,11 +34,21 @@ public class SignUpDelegate extends LatteDelegate {
     @BindView(R2.id.edit_sign_up_re_password)
     TextInputEditText mRePassword = null;
 
+    private ISignListener mSignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener){
+            mSignListener = (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp() {
         if (checkForm()) {
             RestClient.builder()
-                    .url("http://192.168.253.2:8080/RestServer/api/user_profile.php")
+                    .url("http://192.168.43.46:8080/RestServer/api/user_profile.php")
                     .params("name", mName.getText().toString())
                     .params("email", mEmail.getText().toString())
                     .params("phone", mPhone.getText().toString())
@@ -48,12 +57,11 @@ public class SignUpDelegate extends LatteDelegate {
                         @Override
                         public void onSuccess(String response) {
                             LatteLogger.json("USER_PROFILE", response);
-                            SignHandler.onSignUp(response);
+                            SignHandler.onSignUp(response, mSignListener);
                         }
                     })
                     .build()
                     .post();
-            Toast.makeText(getContext(), "验证通过", Toast.LENGTH_SHORT).show();
         }
     }
 
