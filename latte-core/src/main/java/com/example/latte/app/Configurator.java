@@ -1,6 +1,7 @@
 package com.example.latte.app;
 
 import android.app.Activity;
+import android.os.Handler;
 
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
@@ -19,11 +20,13 @@ import okhttp3.Interceptor;
 public class Configurator {
 
     private static final HashMap<Object, Object> LATTE_CONFIGS = new HashMap<>();
+    private static final Handler HANDLER = new Handler();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
     private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     public Configurator() {
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY.name(), false);
+        LATTE_CONFIGS.put(ConfigKeys.HANDLER, HANDLER);
     }
 
     public static Configurator getInstance() {
@@ -58,7 +61,7 @@ public class Configurator {
         return this;
     }
 
-    public final Configurator withLoaderDelayed(long delayed){
+    public final Configurator withLoaderDelayed(long delayed) {
         LATTE_CONFIGS.put(ConfigKeys.LOADER_DELAYED, delayed);
         return this;
     }
@@ -68,17 +71,17 @@ public class Configurator {
         return this;
     }
 
-    public final Configurator withWeChatAppId(String appId){
+    public final Configurator withWeChatAppId(String appId) {
         LATTE_CONFIGS.put(ConfigKeys.WE_CHAT_APP_ID, appId);
         return this;
     }
 
-    public final Configurator withWeChatAppSecret(String appSecret){
+    public final Configurator withWeChatAppSecret(String appSecret) {
         LATTE_CONFIGS.put(ConfigKeys.WE_CHAT_APP_SECRET, appSecret);
         return this;
     }
 
-    public final Configurator withActivity(Activity activity){
+    public final Configurator withActivity(Activity activity) {
         LATTE_CONFIGS.put(ConfigKeys.ACTIVITY, activity);
         return this;
     }

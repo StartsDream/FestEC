@@ -67,5 +67,7 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     //微信依赖(包含统计)
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'
+    //RecycleView依赖
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
 }
