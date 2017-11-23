@@ -7,6 +7,7 @@ import android.view.View;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 /**
  * Created by GPT-2273 on 2017/11/20.
@@ -14,7 +15,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class ImageHolder implements Holder<String> {
 
-    private AppCompatImageView mImageView;
+    private AppCompatImageView mImageView = null;
+
+    //设置图片加载策略
+    private static final RequestOptions BANNER_OPTIONS =
+            new RequestOptions()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .dontAnimate()
+                    .centerCrop();
 
     @Override
     public View createView(Context context) {
@@ -26,9 +34,7 @@ public class ImageHolder implements Holder<String> {
     public void UpdateUI(Context context, int position, String data) {
         Glide.with(context)
                 .load(data)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontAnimate()
-                .centerCrop()
+                .apply(BANNER_OPTIONS)
                 .into(mImageView);
 
     }
