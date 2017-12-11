@@ -2,6 +2,7 @@ package com.example.gpt_2273.festec.example;
 
 import android.app.Application;
 
+import com.example.gpt_2273.festec.example.event.TestEvent;
 import com.example.latte.app.Latte;
 import com.example.latte.ec.datebase.DatabaseManager;
 import com.example.latte.ec.icon.FontECModule;
@@ -26,6 +27,8 @@ public class ExampleApp extends Application{
                 .withInterceptor(new DebugInterceptor("index0",R.raw.test))
                 .withWeChatAppId("")
                 .withWeChatAppSecret("")
+                .withJavascriptInterface("latte")
+                .withWebEvent("test", new TestEvent())
                 .configure();
         initStetho();
         DatabaseManager.getInstance().init(this);

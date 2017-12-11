@@ -1,8 +1,10 @@
-package com.example.latte.delegates.web.event;
+package com.example.gpt_2273.festec.example.event;
 
 import android.os.Build;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import com.example.latte.delegates.web.event.Event;
 
 /**
  * Created by GPT-2273 on 2017/12/6.
